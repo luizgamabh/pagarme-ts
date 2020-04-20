@@ -1,3 +1,5 @@
+import { PagarmeCustomerDocumentInterface } from './pagarme-customer-document.interface';
+
 export interface PagarmeCustomerInterface {
   /**
    * Identificador do cliente em sua plataforma
@@ -27,10 +29,15 @@ export interface PagarmeCustomerInterface {
   /**
    * Dados dos documentos dos clientes
    */
-  documents: string[];
+  documents: PagarmeCustomerDocumentInterface[];
 
   /**
    * Números de telefone dos clientes
    */
   phone_numbers: string[];
+
+  /**
+   * Data de nascimento YYYY-MM-DD
+   */
+  birthday?: string;
 }

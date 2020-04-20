@@ -1,3 +1,7 @@
+import { PagarmeCustomerAddressInterface } from '../customers/pagarme-customer-address.interface';
+import { PagarmeTransactionsItemInterface } from './pagarme-transactions-item.interface';
+import { PagarmeCustomerInterface } from '../customers/pagarme-customer.interface';
+
 export interface PagarmeTransactionsCreateCreditCardInterface {
   /**
    * Método de pagamento: credit_card ou boleto
@@ -8,14 +12,14 @@ export interface PagarmeTransactionsCreateCreditCardInterface {
    * Informações do cartão do cliente criptografadas em sua aplicação. OBS: apenas para transações de Cartão de crédito
    * você deve passar o card_hash ou card_id. Caso inclua os dados do cartão diretamente pelo código, esse campo torna-se dispensável.
    */
-  card_hash: string;
+  card_hash?: string;
 
   /**
    * Ao realizar uma transação, retornamos o card_id do cartão, para que nas próximas transações ele possa ser utilizado como forma
    * de identificar os dados de pagamento. Exemplo de utilização: One-click buy. OBS: apenas para transações de Cartão de crédito
    * você deve passar o card_hash ou card_id. Caso inclua os dados do cartão diretamente pelo código, esse campo torna-se dispensável.
    */
-  card_id: string;
+  card_id?: string;
 
   /**
    * Nome do portador do cartão. OBS: apenas para transações de Cartão de crédito você deve passar o card_holder_name
@@ -46,4 +50,22 @@ export interface PagarmeTransactionsCreateCreditCardInterface {
    * Número de parcelas da transação, sendo mínimo: 1 e Máximo: 12. OBS: Se o pagamento for boleto, o padrão é 1
    */
   installments?: number;
+
+  /**
+   * Obrigatório com o antifraude habilitado. Define os dados de cobrança, como nome e endereço
+   */
+  billing: {
+    name: string;
+    address: PagarmeCustomerAddressInterface;
+  };
+
+  /**
+   * Obrigatório com o antifraude habilitado. Define os dados dos itens vendidos, como nome, preço unitário e quantidade
+   */
+  items: PagarmeTransactionsItemInterface[];
+
+  /**
+   * Dados do cliente
+   */
+  customer: PagarmeCustomerInterface;
 }
