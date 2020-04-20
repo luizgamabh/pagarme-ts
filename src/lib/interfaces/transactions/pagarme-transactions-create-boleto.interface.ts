@@ -12,5 +12,5 @@ export interface PagarmeTransactionsCreateBoletoInterface {
   /**
    * Campo instruções do boleto. Máximo de 255 caracteres
    */
-  boleto_instructions: string;
+  boleto_instructions?: string;
 }

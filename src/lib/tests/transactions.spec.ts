@@ -1,4 +1,4 @@
-import { Pagarme } from './pagarme.provider';
+import { Pagarme } from '..';
 import { PagarmeModel } from '../models/pagarme.model';
 
 describe('Testing transactions', () => {
@@ -48,8 +48,4 @@ describe('Testing transactions', () => {
     const foundTransaction = await transactions?.find({ id });
     expect(foundTransaction.id).toBe(id);
   });
-
-  it('should create a new transaction', async() => {
-
-  })
 });

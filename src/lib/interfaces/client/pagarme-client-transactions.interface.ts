@@ -1,4 +1,7 @@
 import { PagarmeTransactionsFiltersInterface } from '../transactions/pagarme-transactions-filters.interface';
+import { PagarmeTransactionsCreateInterface } from '../transactions/pagarme-transactions-create.interface';
+import { PagarmeTransactionsCreateCreditCardInterface } from '../transactions/pagarme-transactions-create-credit-card.interface';
+import { PagarmeTransactionsCreateBoletoInterface } from '../transactions/pagarme-transactions-create-boleto.interface';
 
 export interface PagarmeClientTransactionsInterface {
   /**
@@ -42,7 +45,14 @@ export interface PagarmeClientTransactionsInterface {
    * {@link https://pagarme.readme.io/reference#criar-transação|API Reference for this payload}
    * @returns {Promise} Resolves to the result of the request or to an error.
    */
-  create(opts: {}, body: {}): Promise<any>;
+  create(
+    opts: PagarmeTransactionsCreateInterface &
+      (
+        | PagarmeTransactionsCreateCreditCardInterface
+        | PagarmeTransactionsCreateBoletoInterface
+      ),
+    body?: {}
+  ): Promise<any>;
 
   /**
    * `POST /transactions/:id/refund`
