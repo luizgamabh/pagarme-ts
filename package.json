@@ -16,7 +16,7 @@
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:tslint": "tslint --fix --project .",
-    "test": "jest",
+    "test": "jest --setupFiles dotenv/config",
     "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
     "cov": "run-s build test:unit cov:html && open-cli coverage/index.html",
     "doc": "run-s doc:html && open-cli build/docs/index.html",
@@ -45,6 +45,9 @@
     "node": ">=8.9"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "pagarme": "^4.8.0",
+    "rxjs": "^6.5.5",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
@@ -52,8 +55,8 @@
     "@bitjson/typedoc": "^0.15.0-0",
     "@commitlint/config-conventional": "^8.3.4",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "@types/node": "^13.9.0",
     "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
     "commitlint": "^8.3.5",
     "cz-conventional-changelog": "^3.1.0",
     "gh-pages": "^2.2.0",
@@ -64,10 +67,10 @@
     "prettier": "^2.0.2",
     "standard-version": "^7.1.0",
     "trash-cli": "^3.0.0",
+    "ts-jest": "^25.3.0",
     "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-immutable": "^6.0.1",
-    "ts-jest": "^25.3.0",
     "typescript": "^3.7.5"
   },
   "husky": {

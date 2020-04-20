@@ -1,3 +1,5 @@
+import { PagarmeClientInterface } from './client/pagarme-client.interface';
+
 export interface PasswordStrategyInterface {
   readonly strategy: 'password';
   readonly email: string;
@@ -13,12 +15,13 @@ export interface EncryptionKeyStrategyInterface {
   readonly encryption_key: string;
 }
 
-export type IPagarMeAccessData =
+export type PagarMeAccessDataInterface =
   | PasswordStrategyInterface
   | ApiKeyStrategyInterface
   | EncryptionKeyStrategyInterface;
 
 export interface PagarMeModelInterface {
-  readonly client?: any;
-  readonly transactions?: ReadonlyArray<any>;
+  client?: PagarmeClientInterface;
+  validate?: any; // TODO: Pending
+  postback?: any; // TODO: Pending
 }

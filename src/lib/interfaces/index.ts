@@ -1,1 +1,1 @@
-export * from './pagar-me.interface';
+export * from './pagarme.interface';

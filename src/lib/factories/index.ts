@@ -1,1 +1,1 @@
-export * from './pagar-me.factory';
+export * from '../providers/pagarme.provider';
