@@ -1,3 +1,5 @@
+import { PagarmeTransactionsFiltersInterface } from '../transactions/pagarme-transactions-filters.interface';
+
 export interface PagarmeClientTransactionsInterface {
   /**
    * `GET /transactions`
@@ -10,18 +12,15 @@ export interface PagarmeClientTransactionsInterface {
    * @param {Number} [body.count] Pagination option for transaction list. Number of transaction in a page
    * @param {Number} [body.page] Pagination option for transaction list. The page index.
    */
-  find(opts: {}, body: {}): Promise<any>;
+  find(opts?: {}, body?: {}): Promise<any>;
 
   /**
    * `GET /transactions`
    * Makes a request to /transactions to get all transactions.
    *
-   * @param {Object} opts An options params which is usually already bound by `connect` functions.
-   * @param {Object} body
-   * @param {Number} [body.count] Pagination option for recipient list. Number of recipient in a page
-   * @param {Number} [body.page] Pagination option for recipient list. The page index.
+   * @param {PagarmeTransactionsFiltersInterface} [opts] An options params which is usually already bound by `connect` functions.
    */
-  all(opts: {}, body: {}): Promise<any>;
+  all(opts?: PagarmeTransactionsFiltersInterface): Promise<any>;
 
   /**
    * `POST /transactions/:id/capture`

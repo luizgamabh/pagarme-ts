@@ -1,15 +1,16 @@
-import { PagarmeProvider } from './pagarme.provider';
-import { Pagarme } from '../models/pagarme.model';
+import { Pagarme } from './pagarme.provider';
+import { PagarmeModel } from '../models/pagarme.model';
 
-describe('PagarMeFactory', () => {
-  let service: PagarmeProvider;
+describe('Testing transactions', () => {
+  let service: Pagarme;
   let connection: any;
 
   beforeAll(async () => {
-    service = new PagarmeProvider({
+    service = new Pagarme({
       strategy: 'apiKey',
       api_key: process.env.API_KEY || 'invalid',
     });
+    connection = await service.connect();
   });
 
   it('Should be instantiated', () => {
@@ -17,29 +18,38 @@ describe('PagarMeFactory', () => {
   });
 
   it('should connect using api', () => {
-    expect(connection).toBeInstanceOf(Pagarme);
+    expect(connection).toBeInstanceOf(PagarmeModel);
   });
 
   // Transactions
 
   it('should return my company transactions', async () => {
-    const transactions = service.transactions();
+    const transactions = service.client?.transactions;
     const allTransactions = await transactions?.all();
-    console.log(allTransactions);
     expect(allTransactions).toBeInstanceOf(Array);
+  });
+
+  it('should paginate results', async () => {
+    const transactions = service.client?.transactions;
+    const allTransactions = await transactions?.all({ count: 2 });
+    expect(allTransactions).toHaveLength(2);
+  });
+
+  it('should filter by transaction id', async () => {
+    const id = 8002258;
+    const transactions = service.client?.transactions;
+    const foundTransaction = await transactions?.all({ id });
+    expect(foundTransaction).toHaveLength(1);
   });
 
   it('should find a transaction by id', async () => {
     const id = 8002258;
-    const transactions = service.transactions();
-    console.log(transactions);
-    const foundTransaction = await transactions?.findById(id);
-    console.log(foundTransaction);
-    expect(foundTransaction).toHaveProperty('id');
+    const transactions = service.client?.transactions;
+    const foundTransaction = await transactions?.find({ id });
+    expect(foundTransaction.id).toBe(id);
   });
 
-  it('should return my company users', async () => {
-    const transactions = await connection.client.user.all();
-    expect(transactions).toBeInstanceOf(Array);
-  });
+  it('should create a new transaction', async() => {
+
+  })
 });
