@@ -1,5 +1,4 @@
 import { PagarmeTransactionsSplitRulesInterface } from './pagarme-transactions-split-rules.interface';
-import { PagarmeCustomerInterface } from '../customers/pagarme-customer.interface';
 
 export interface PagarmeTransactionsCreateInterface {
   /**
@@ -30,29 +29,10 @@ export interface PagarmeTransactionsCreateInterface {
   split_rules?: PagarmeTransactionsSplitRulesInterface[];
 
   /**
-   * Dados do cliente
-   */
-  customer?: PagarmeCustomerInterface;
-
-  /**
-   * Obrigatório com o antifraude habilitado. Define os dados de cobrança, como nome e endereço
-   */
-  billing?: {
-    [key: string]: any; // TODO: @pagarme-team. Missing object details on {https://docs.pagar.me/reference#criar-transacao}
-  };
-
-  /**
    * Define os dados de envio da compra, como nome do recebedor, valor do envio e endereço de recebimento. Deve ser preenchido no caso da venda de bem físico
    */
   shipping?: {
     [key: string]: any; // TODO: @pagarme-team {https://docs.pagar.me/reference#criar-transacao}
-  };
-
-  /**
-   * Obrigatório com o antifraude habilitado. Define os dados dos itens vendidos, como nome, preço unitário e quantidade
-   */
-  items?: {
-    [key: string]: any; // TODO: @pagarme-team
   };
 
   /**
