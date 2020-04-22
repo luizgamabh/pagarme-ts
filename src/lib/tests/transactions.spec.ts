@@ -1,28 +1,16 @@
 import { Pagarme } from '..';
-import { PagarmeModel } from '../models/pagarme.model';
 import { promised } from '../utils/promised';
 
 describe('Testing transactions', () => {
   let service: Pagarme;
-  let connection: any;
 
   beforeAll(async () => {
     service = new Pagarme({
       strategy: 'apiKey',
       api_key: process.env.API_KEY || 'invalid',
     });
-    connection = await service.connect();
+    await service.connect();
   });
-
-  it('Should be instantiated', () => {
-    expect(service).toBeDefined();
-  });
-
-  it('should connect using api', () => {
-    expect(connection).toBeInstanceOf(PagarmeModel);
-  });
-
-  // Transactions
 
   it('should return my company transactions', async () => {
     const transactions = service.client?.transactions;
@@ -50,26 +38,27 @@ describe('Testing transactions', () => {
     expect(foundTransaction.id).toBe(id);
   });
 
-  it.skip('should create a new R$10,00 transaction', async () => {
+  it('should create a new R$10,00 transaction', async () => {
     const transactions = service.client?.transactions;
+    // https://www.4devs.com.br/gerador_de_numero_cartao_credito
     const [error, newTransaction] = await promised(
       transactions?.create({
         payment_method: 'credit_card',
         amount: 1000,
-        card_cvv: '034',
-        card_expiration_date: '0921',
-        card_holder_name: 'LUIZ GUSTAVO FREIRE GAMA',
-        card_number: '5292050041610883',
+        card_cvv: '479',
+        card_expiration_date: '0422',
+        card_holder_name: 'GIOVANA M CALDEIRA',
+        card_number: '4716920315660197',
         billing: {
-          name: 'My house',
+          name: 'House',
           address: {
             city: 'Belo Horizonte',
             state: 'mg',
             country: 'br',
-            neighborhood: 'santa inês',
-            street: 'Rua Itaobim',
-            street_number: '65',
-            zipcode: '31080240',
+            neighborhood: 'Céu Azul',
+            street: 'Rua Rosa Carrieri Mancini',
+            street_number: '720',
+            zipcode: '81925620',
           },
         },
         items: [
@@ -86,15 +75,15 @@ describe('Testing transactions', () => {
           documents: [
             {
               type: 'cpf',
-              number: '01433345650',
+              number: '60455786003',
             },
           ],
-          email: 'luizgamabh@gmail.com',
-          name: 'Luiz Gustavo Freire Gama',
-          external_id: '7325',
-          phone_numbers: ['+553134614255'],
+          email: 'ggiovanamarinacaldeira@mailinator.com',
+          name: 'Giovana Marina Caldeira',
+          external_id: '1213',
+          phone_numbers: ['+553133334444'],
           type: 'individual',
-          birthday: '1983-10-27',
+          birthday: '1990-05-06',
         },
       })
     );
@@ -106,24 +95,25 @@ describe('Testing transactions', () => {
 
   it('should refuse a transaction by antifraud', async () => {
     const transactions = service.client?.transactions;
+    // https://www.4devs.com.br/gerador_de_numero_cartao_credito
     const [error, newTransaction] = await promised(
       transactions?.create({
         payment_method: 'credit_card',
         amount: 1000,
-        card_cvv: '034',
-        card_expiration_date: '0921',
-        card_holder_name: 'LUIZ GUSTAVO FREIRE GAMA',
-        card_number: '5292050041610883',
+        card_cvv: '479',
+        card_expiration_date: '0422',
+        card_holder_name: 'GIOVANA M CALDEIRA',
+        card_number: '4716920315660197',
         billing: {
-          name: 'My house',
+          name: 'House',
           address: {
             city: 'Belo Horizonte',
             state: 'mg',
             country: 'br',
-            neighborhood: 'santa inês',
-            street: 'Rua Itaobim',
-            street_number: '65',
-            zipcode: '31080240',
+            neighborhood: 'Céu Azul',
+            street: 'Rua Rosa Carrieri Mancini',
+            street_number: '720',
+            zipcode: '81925620',
           },
         },
         items: [
@@ -143,12 +133,12 @@ describe('Testing transactions', () => {
               number: '11111111111',
             },
           ],
-          email: 'luizgamabh@gmail.com',
-          name: 'Luiz Gustavo Freire Gama',
-          external_id: '7325',
-          phone_numbers: ['+553134614255'],
+          email: 'ggiovanamarinacaldeira@mailinator.com',
+          name: 'Giovana Marina Caldeira',
+          external_id: '1213',
+          phone_numbers: ['+553133334444'],
           type: 'individual',
-          birthday: '1983-10-27',
+          birthday: '1990-05-06',
         },
       })
     );

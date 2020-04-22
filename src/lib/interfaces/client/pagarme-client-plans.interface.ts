@@ -9,7 +9,7 @@ export interface PagarmeClientPlansInterface {
    * @param {Number} [body.count] Pagination option to get a list of plans. Number of plans in a page
    * @param {Number} [body.page] Pagination option for a list of plans. The page index.
    */
-  all(opts: {}, body: {}): Promise<any>;
+  all(opts?: {}, body?: {}): Promise<any>;
 
   /**
    * `GET /plans`
